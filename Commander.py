@@ -2,33 +2,50 @@
 
 import time, os
 
-# Commander
-print("[1] Commander")
-print("[2] Slayer Commander (No TTR)")
-print("Select option:")
-OPTION = input("")
+def noTTR(commands):
+    try:
+        while True:
+            for command in commands:
+                print(f"> {command}")
+                os.system(command)
+    except KeyboardInterrupt:
+        print("\nStopped")
 
-if OPTION == "1":
-	# Commander
-	print("Enter command:")
-	COMMAND = input("")
-	print("Enter TTR (Time To Repeat) in seconds:")
-	TTR = int(input(""))
+def TTR(commands):
+    try:
+        while True:
+            for command in commands:
+                print(f"> {command}")
+                os.system(command)
+                time.sleep(0)
+    except KeyboardInterrupt:
+        print("\nStopped")
 
-	while True:
-		os.system(COMMAND)
-		time.sleep(TTR)
+def askHowMany():
+    try:
+        n = int(input("How many commands do you want to repeat? "))
+        return n
+    except ValueError:
+        print("Invalid number")
+        askHowMany()
 
-elif OPTION == "2":
+def askTTR():
+    try:
+        ttr = int(input("Enter Delay in seconds (0 is valid): "))
+    except ValueError:
+        print("Invalid number")
+        return
+    
+    print("\nRunning... (Ctrl+C to stop)\n")
 
-	#Slayer Commander
-	print("Enter command:")
-	COMMAND = input("")
-	print("Are you sure you want to run Slayer Commander? (y/n)")
-	CONFIRMATION = input("")
+    if ttr == 0:
+        noTTR(commands)
+    else:
+        TTR(commands)
 
-	if CONFIRMATION == "y":
-		while True:
-			os.system(COMMAND)
-	else:
-		print("Bye bye")
+commands = []
+
+for i in range(askHowMany()):
+    command = input(f"Command Nº{i+1}: ")
+    commands.append(command)
+askTTR()
