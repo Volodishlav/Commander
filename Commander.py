@@ -10,15 +10,15 @@ def askHowMany():
         return n
     except ValueError:
         print("Invalid number")
-        askHowMany()
+        return askHowMany()
 
 def askTTR(commands):
     try:
         ttr = int(input("Enter Delay in seconds (0 is valid): "))
     except ValueError:
         print("Invalid number")
-        askTTR(commands)
-        return
+        return askTTR(commands)
+        
     
     print("\nRunning... (Ctrl+C to stop)\n")
 
@@ -30,41 +30,42 @@ def askWD(commands, ttr):
         print("Please answer with 'y' or 'n'")
         return askWD(commands, ttr)
     if wd == 'n':
-        return
+        askTime(commands, ttr)
     elif wd == 'y':
         path = input("Introduce the path: ")
         if os.path.isdir(path):
             os.chdir(path)
             print(f"Working directory set to: {path}")
-            pedirHora(commands, ttr)
+            askTime(commands, ttr)
         else:
             print("Invalid path")
-            askWD(commands, ttr)
+            return askWD(commands, ttr)
 
-def pedirHora(commands, ttr):
+def askTime(commands, ttr):
     answer = input("Do you want to set a specific time to start? (y/n): ").lower()
     if answer not in ['y', 'n']:
         print("Please answer with 'y' or 'n'")
-        return pedirHora(commands, ttr)
+        return askTime(commands, ttr)
     if answer == 'n':
         EXE(commands, ttr)
         return
     elif answer == 'y':
-        hora = input("Introduce the time (HH:MM:SS): ")
-    try:
-        time.strptime(hora, "%H:%M:%S")
-    except ValueError:
-        print("Incorrect format. Use HH:MM:SS")
-        return
-    waitTime(commands, ttr, hora)
+        while True:
+                time = input("Introduce the time (HH:MM:SS): ")
+                try:
+                    time.strptime(time, "%H:%M:%S")
+                    break
+                except ValueError:
+                    print("Incorrect format. Use HH:MM:SS")
+        waitTime(commands, ttr, time)
 
-def waitTime(commands, ttr, hora):
-    print(f"Waiting until {hora}...")
+def waitTime(commands, ttr, time):
+    print(f"Waiting until {time}...")
 
     while True:
         now = datetime.now().strftime("%H:%M:%S")
 
-        if now == hora:
+        if now == time:
             EXE(commands, ttr)
             break
 
@@ -80,9 +81,14 @@ def EXE(commands, ttr):
     except KeyboardInterrupt:
         print("\nStopped")
 
-commands = []
+def main():
 
-for i in range(askHowMany()):
-    command = input(f"Command Nº{i+1}: ")
-    commands.append(command)
-askTTR(commands)
+    commands = []
+
+    for i in range(askHowMany()):
+        command = input(f"Command Nº{i+1}: ")
+        commands.append(command)
+    askTTR(commands)
+
+if __name__ == "__main__":
+    main()
