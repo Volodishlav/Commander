@@ -18,10 +18,7 @@ def askTTR(commands):
     except ValueError:
         print("Invalid number")
         return askTTR(commands)
-        
-    
     print("\nRunning... (Ctrl+C to stop)\n")
-
     askWD(commands, ttr)
 
 def askWD(commands, ttr):
@@ -61,14 +58,11 @@ def askTime(commands, ttr):
 
 def waitTime(commands, ttr, time):
     print(f"Waiting until {time}...")
-
     while True:
         now = datetime.now().strftime("%H:%M:%S")
-
         if now == time:
             EXE(commands, ttr)
             break
-
         time.sleep(1)  # revisa cada 1 seg
 
 def EXE(commands, ttr):
