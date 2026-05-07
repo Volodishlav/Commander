@@ -15,7 +15,15 @@ A simple Python-based command execution tool designed to repeatedly run shell co
 
 ---
 
+### Configuration
+
+```python
+# You can edit this line (checks the current time every 1 second):
+time.sleep(1)
+```
+
 ### Usage
 
 ```bash
 python3 Commander.py
+```
