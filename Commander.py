@@ -63,7 +63,7 @@ def waitTime(commands, ttr, time):
         if now == time:
             EXE(commands, ttr)
             break
-        time.sleep(1)  # revisa cada 1 seg
+        time.sleep(1)
 
 def EXE(commands, ttr):
     try:
