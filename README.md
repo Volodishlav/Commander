@@ -18,4 +18,4 @@ A simple Python-based command execution tool designed to repeatedly run shell co
 ### Usage
 
 ```bash
-python3 script.py
+python3 Commander.py
