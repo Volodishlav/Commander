@@ -6,7 +6,8 @@ A simple Python-based command execution tool designed to repeatedly run shell co
 
 ### Features
 
-- Execute any shell command in a loop (you can also run multiple commands in order)
+- Execute any shell command or command set in a loop
+- Execute any shell command or command set X times
 - Configurable delay between executions (TTR - Time To Repeat)
 - “Slayer Mode” for continuous execution without delay
 - Custom working directory
